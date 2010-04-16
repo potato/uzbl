@@ -303,6 +303,8 @@ file).
   - `data`: The cookie data. Only included for "PUT" requests.
 * `scheme_handler`: handler to execute for each URI navigated to - the
   navigation request will be ignored if handler prints "USED\n"
+* `resource_handler`: handler to execute for each http request - the
+  http request will be blocked if handler prints "BLOCK\n"
 * `fifo_dir`: location to store FIFOs.
 * `socket_dir`: location to store sockets.
 * `http_debug`: HTTP debug mode (value 0-3).

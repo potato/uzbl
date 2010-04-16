@@ -690,8 +690,18 @@ request_starting_cb(WebKitWebView *web_view, WebKitWebFrame *frame, WebKitWebRes
     (void) resource;
     (void) response;
     (void) user_data;
+    gchar *uri;
 
-    send_event(REQUEST_STARTING, webkit_network_request_get_uri(request), NULL);
+    run_handler(uzbl.behave.resource_handler, webkit_network_request_get_uri(request));
+    uri = webkit_network_request_get_uri(request);
+    if(uzbl.comm.sync_stdout && strcmp(uzbl.comm.sync_stdout, "") != 0){
+        if(strncmp(uzbl.comm.sync_stdout, "BLOCK", strlen("BLOCK")) != 0){
+            send_event(REQUEST_STARTING, webkit_network_request_get_uri(request), NULL);
+        } else {
+            webkit_network_request_set_uri(request, "about:none");
+            send_event(REQUEST_STARTING, uri, NULL);
+        }
+    }
 }
 
 void
@@ -866,3 +876,4 @@ save_cookies_http(SoupMessage *msg, gpointer user_data) {
 
     g_slist_free(ck);
 }
+
