@@ -131,7 +131,7 @@ typedef struct {
     gchar*   fantasy_font_family;
     gchar*   cursive_font_family;
     gchar*   scheme_handler;
-    gchar*   resource_handler;
+    gchar*   request_handler;
     gboolean show_status;
     gboolean forward_keys;
     gboolean status_top;

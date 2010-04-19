@@ -690,17 +690,17 @@ request_starting_cb(WebKitWebView *web_view, WebKitWebFrame *frame, WebKitWebRes
     (void) resource;
     (void) response;
     (void) user_data;
-    gchar *uri;
 
-    run_handler(uzbl.behave.resource_handler, webkit_network_request_get_uri(request));
-    uri = webkit_network_request_get_uri(request);
-    if(uzbl.comm.sync_stdout && strcmp(uzbl.comm.sync_stdout, "") != 0){
-        if(strncmp(uzbl.comm.sync_stdout, "BLOCK", strlen("BLOCK")) != 0){
-            send_event(REQUEST_STARTING, webkit_network_request_get_uri(request), NULL);
-        } else {
+    if(uzbl.behave.request_handler){
+        run_handler(uzbl.behave.request_handler, webkit_web_resource_get_uri(resource));
+        if (strncmp(uzbl.comm.sync_stdout, "BLOCK", strlen("BLOCK")) == 0) {
             webkit_network_request_set_uri(request, "about:none");
-            send_event(REQUEST_STARTING, uri, NULL);
+            send_event(REQUEST_BLOCKED, webkit_web_resource_get_uri(resource), NULL);
+        } else {
+            send_event(REQUEST_STARTING, webkit_web_resource_get_uri(resource), NULL);
         }
+    } else {
+        send_event(REQUEST_STARTING, webkit_web_resource_get_uri(resource), NULL);
     }
 }
 

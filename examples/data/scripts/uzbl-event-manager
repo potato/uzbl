@@ -872,7 +872,7 @@ if __name__ == "__main__":
         '%(name)s: %(levelname)s: %(message)s'))
 
     # File logging handler
-    fh = logging.FileHandler(opts.log_file, 'w', 'utf-8', 1)
+    fh = logging.FileHandler(opts.log_file, 'w', 'utf-8')
     fh.setLevel(max(log_level, 10))
     fh.setFormatter(logging.Formatter(
         '[%(created)f] %(name)s: %(levelname)s: %(message)s'))

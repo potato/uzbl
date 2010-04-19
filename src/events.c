@@ -20,6 +20,7 @@ const char *event_table[LAST_EVENT] = {
      "LOAD_FINISH"      ,
      "LOAD_ERROR"       ,
      "REQUEST_STARTING" ,
+     "REQUEST_BLOCKED"  ,
      "KEY_PRESS"        ,
      "KEY_RELEASE"      ,
      "DOWNLOAD_REQUEST" ,
@@ -107,7 +108,7 @@ send_event_socket(GString *msg) {
             g_ptr_array_free(uzbl.state.event_buffer, TRUE);
             uzbl.state.event_buffer = NULL;
         }
-    }
+     }
     /* buffer events until a socket is set and connected
     * or a timeout is encountered
     */
@@ -135,7 +136,7 @@ send_event_socket(GString *msg) {
             }
         }
     }
-}
+} 
 
 void
 send_event_stdout(GString *msg) {

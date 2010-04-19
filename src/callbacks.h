@@ -216,6 +216,3 @@ save_cookies_js(SoupCookieJar *jar, SoupCookie *old_cookie, SoupCookie *new_cook
 
 void
 save_cookies_http(SoupMessage *msg, gpointer user_data);
-
-void
-cb_resource_handler();
